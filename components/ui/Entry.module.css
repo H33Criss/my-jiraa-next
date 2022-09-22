@@ -1,0 +1,26 @@
+.dragging {
+    background-color: rgba(255, 255, 255, 0.3);
+    border: 1px dashed white;
+}
+
+.entryBg {
+    background-color: #2b2b2b;
+}
+
+.entryList {
+    border-radius: 10px;
+    height: calc(100vh - 200px);
+    overflow: auto;
+    overflow-x: hidden;
+}
+
+.entryList::-webkit-scrollbar {
+    width: 3px;
+    background-color: #1a1a1a;
+}
+
+.entryList::-webkit-scrollbar-thumb {
+    background: #fff;
+    border: 7px none #fff;
+    border-radius: 10px;
+}

@@ -1,8 +1,10 @@
 import { Box, List, Paper } from "@mui/material"
-import { FC, useContext } from 'react';
+import { DragEvent, FC, useContext } from 'react';
 import { EntriesContext } from "../../context/entries";
+import { UiContext } from "../../context/ui";
 import { EntryStatus } from "../../interfaces"
 import { EntryCard } from "./"
+import styles from './Entry.module.css'
 
 interface Props {
     status: EntryStatus;
@@ -10,29 +12,33 @@ interface Props {
 
 export const EntryList: FC<Props> = ({ status }) => {
 
-    const { entries } = useContext(EntriesContext);
+    const { entries, updateEntry } = useContext(EntriesContext);
+    const { isDragging } = useContext(UiContext);
     const EntriesByStatus = entries.filter(entry => entry.status === status);
+
+    const onDropEntry = (e: DragEvent<HTMLDivElement>) => {
+        const entry = entries.find(entry => entry._id === e.dataTransfer.getData('text'))!;
+        entry.status = status;
+        updateEntry(entry);
+
+
+    }
+    const dragOver = (e: DragEvent<HTMLDivElement>) => {
+        e.preventDefault()
+    }
+
     return (
-        <div>
+        <div
+            onDrop={onDropEntry}
+            onDragOver={dragOver}
+        >
             <Paper sx={{
                 height: 'calc(100vh - 200px)',
+                borderRadius: '10px',
             }}>
-                <Box sx={{
-                    backgroundColor: '#2b2b2b', height: 'calc(100vh - 200px)',
-                    overflow: 'auto', overflowX: 'hidden',
-                    "&::-webkit-scrollbar": {
-                        width: "3px",
-                        bgcolor: "#1a1a1a",
-
-                    },
-                    "&::-webkit-scrollbar-thumb": {
-                        background: "#fff",
-                        border: "7px none #fffff",
-                        borderRadius: "10px",
-                    },
-
-                }}>
-                    <List sx={{ opacity: 1, padding: '10px' }}>
+                <Box
+                    className={`${styles.entryList}  ${isDragging ? styles.dragging : styles.entryBg}`}>
+                    <List sx={{ opacity: isDragging ? 0.5 : 1, padding: '10px' }}>
                         {
                             EntriesByStatus.map(entry => (
                                 <EntryCard key={entry._id} entry={entry} />

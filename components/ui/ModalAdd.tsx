@@ -1,8 +1,9 @@
 import { Box, Button, Modal, TextField, Typography } from '@mui/material'
-import React, { ChangeEvent, Dispatch, FC, SetStateAction } from 'react'
+import React, { ChangeEvent, Dispatch, FC, SetStateAction, useContext } from 'react'
 import SaveIcon from '@mui/icons-material/Save';
 import CloseIcon from '@mui/icons-material/Close';
 import { useState } from 'react';
+import { EntriesContext } from '../../context/entries';
 
 interface Props {
     openModal: boolean,
@@ -10,6 +11,8 @@ interface Props {
 }
 
 export const ModalAdd: FC<Props> = ({ openModal, setOpenModal }) => {
+
+    const { addNewEntry } = useContext(EntriesContext);
     const [inputValue, setInputValue] = useState('');
     const [touched, setTouch] = useState(false);
 
@@ -20,6 +23,12 @@ export const ModalAdd: FC<Props> = ({ openModal, setOpenModal }) => {
     const handleCloseModal = () => {
         setOpenModal(!openModal);
         setTouch(false);
+    }
+
+    const onSaveEntry = () => {
+        handleCloseModal();
+        addNewEntry(inputValue);
+        setInputValue('');
     }
 
     return (
@@ -52,6 +61,7 @@ export const ModalAdd: FC<Props> = ({ openModal, setOpenModal }) => {
                     helperText={inputValue.length <= 0 && touched && '*Campo obligatorio'}
                     onBlur={() => setTouch(true)}
                     InputLabelProps={{ color: 'info' }}
+                    multiline
                     sx={{
                         '& .MuiOutlinedInput-root': {
                             '&.Mui-focused fieldset': {
@@ -64,7 +74,7 @@ export const ModalAdd: FC<Props> = ({ openModal, setOpenModal }) => {
                 />
                 <Box display='flex' justifyContent='space-between' sx={{ marginTop: '20px' }}>
                     <Button onClick={() => handleCloseModal()} startIcon={<CloseIcon />} variant='outlined' color='error'>Cancelar</Button>
-                    <Button startIcon={<SaveIcon />} variant='lighter'>Guardar</Button>
+                    <Button onClick={() => onSaveEntry()} startIcon={<SaveIcon />} variant='lighter'>Guardar</Button>
                 </Box>
             </Box>
         </Modal>

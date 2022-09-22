@@ -1,16 +1,31 @@
 import { Card, CardActionArea, CardActions, CardContent, Typography } from '@mui/material';
-import { FC } from 'react';
+import { DragEvent, FC } from 'react';
 import { Entries } from '../../interfaces';
+import { useContext } from 'react';
+import { UiContext } from '../../context/ui';
 
 interface Props {
     entry: Entries;
 }
 
 export const EntryCard: FC<Props> = ({ entry }) => {
+
+    const { toggleDragging } = useContext(UiContext);
+
+    const handleOnDrag = (e: DragEvent) => {
+        e.dataTransfer.setData('text', entry._id);
+        toggleDragging();
+    }
+
     return (
         <Card
+            draggable
+            onDragStart={handleOnDrag}
             sx={{
                 marginBottom: '10px',
+            }}
+            onDragEnd={() => {
+                toggleDragging()
             }}
         >
             <CardActionArea>
