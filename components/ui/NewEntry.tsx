@@ -10,7 +10,7 @@ export const NewEntry = () => {
     return (
         <Box sx={{ paddingRight: '20px' }}>
             <ModalAdd openModal={openModal} setOpenModal={setOpenModal} />
-            <Button size='small' variant="contained" color='primary' onClick={() => setOpenModal(!openModal)} startIcon={<AddIcon />}>Añadir</Button>
+            <Button size='small' variant="contained" color='primary' onClick={() => setOpenModal(!openModal)} startIcon={<AddIcon />}>Nueva</Button>
             {/* <Button size='small' onClick={() => setOpenModal(!openModal)} startIcon={<AddIcon />} variant="lighter">Añadir</Button> */}
         </Box>
     )
