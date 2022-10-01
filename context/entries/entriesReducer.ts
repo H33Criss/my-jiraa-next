@@ -5,6 +5,7 @@ import { EntriesState } from './';
 type EntriesActionType =
     | { type: 'Entries - Add new entry', payload: Entries }
     | { type: 'Entries - Update entries', payload: Entries }
+    | { type: 'Entries - Load initial state', payload: Entries[] }
 // | { type: 'Entries - Close sidebar' }
 
 
@@ -28,6 +29,11 @@ export const entriesReducer = (state: EntriesState, action: EntriesActionType): 
             })
 
             return state;
+        case 'Entries - Load initial state':
+            return {
+                ...state,
+                entries:[...action.payload],
+            }
 
 
         default:

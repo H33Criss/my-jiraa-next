@@ -5,6 +5,8 @@ import { EntryList, NewEntry } from '../components/ui'
 
 
 const Home: NextPage = () => {
+
+  
   return (
     <Mainlayout>
       <Grid container spacing={1}>
