@@ -1,5 +1,5 @@
 import { Box, List, Paper } from "@mui/material"
-import { DragEvent, FC, useContext } from 'react';
+import { DragEvent, FC, useContext, useMemo } from 'react';
 import { EntriesContext } from "../../context/entries";
 import { UiContext } from "../../context/ui";
 import { EntryStatus } from "../../interfaces"
@@ -13,15 +13,15 @@ interface Props {
 export const EntryList: FC<Props> = ({ status }) => {
 
     const { entries, updateEntry } = useContext(EntriesContext);
-    const { isDragging } = useContext(UiContext);
-    const EntriesByStatus = entries.filter(entry => entry.status === status);
+    const { isDragging, setDragging } = useContext(UiContext);
+
+    const EntriesByStatus = useMemo( () => entries.filter( entry => entry.status === status ), [ entries ]);
 
     const onDropEntry = (e: DragEvent<HTMLDivElement>) => {
         const entry = entries.find(entry => entry._id === e.dataTransfer.getData('text'))!;
         entry.status = status;
         updateEntry(entry);
-
-
+        setDragging(false);
     }
     const dragOver = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault()

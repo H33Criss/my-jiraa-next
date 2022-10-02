@@ -17,18 +17,15 @@ export const entriesReducer = (state: EntriesState, action: EntriesActionType): 
                 entries: [...state.entries, action.payload],
             };
         case 'Entries - Update entries':
-            state.entries.map(entry => {
-
-                if (entry._id === action.payload._id) {
-                    entry.status = action.payload.status;
-                    entry.description = action.payload.description;
+            return {
+                ...state, 
+                entries: state.entries.map(entry => {
+                    if (entry._id === action.payload._id) {
+                        entry.status = action.payload.status;
+                        entry.description = action.payload.description;
+                    }
                     return entry;
-                }
-
-                return entry;
-            })
-
-            return state;
+            }) };
         case 'Entries - Load initial state':
             return {
                 ...state,

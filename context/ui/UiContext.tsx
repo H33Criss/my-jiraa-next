@@ -7,7 +7,8 @@ interface ContextProps {
     openMenu: () => void,
     closeMenu: () => void,
     toggleAdding: () => void,
-    toggleDragging: () => void,
+    toggleDragging: (current?:boolean) => void,
+    setDragging: (dragg:boolean) => void,
 }
 
 

@@ -19,6 +19,7 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
         const {data}= await entriesApi.get<Entries[]>('/entries');
         dispatch({ type: 'Entries - Load initial state', payload: data });
     }
+
     useEffect(() => {
       refreshEntries();
     }, [])
@@ -29,8 +30,17 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
 
         dispatch({ type: 'Entries - Add new entry', payload: data });
     }
-    const updateEntry = (Entry: Entries) => {
-        dispatch({ type: 'Entries - Update entries', payload: Entry });
+    const updateEntry = async(Entry: Entries) => {
+        try {
+            const {data} = await entriesApi.put<Entries>(`/entries/${Entry._id}`,{
+                description:Entry.description,
+                status:Entry.status,
+            })
+            dispatch({ type: 'Entries - Update entries', payload: data });
+            
+        } catch (error) {
+            console.log(error);
+        }
     }
     return (
         <EntriesContext.Provider value={{

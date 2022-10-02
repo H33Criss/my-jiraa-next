@@ -10,11 +10,11 @@ interface Props {
 
 export const EntryCard: FC<Props> = ({ entry }) => {
 
-    const { toggleDragging } = useContext(UiContext);
+    const { setDragging, isDragging } = useContext(UiContext);
 
     const handleOnDrag = (e: DragEvent) => {
         e.dataTransfer.setData('text', entry._id);
-        toggleDragging();
+        setDragging(true);
     }
 
     return (
@@ -25,7 +25,7 @@ export const EntryCard: FC<Props> = ({ entry }) => {
                 marginBottom: '10px',
             }}
             onDragEnd={() => {
-                toggleDragging()
+                setDragging(false)
             }}
         >
             <CardActionArea>

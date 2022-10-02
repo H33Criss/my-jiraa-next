@@ -16,11 +16,11 @@ export const connect = async () =>{
 
     
     if(mongooConnection.statusConnect){
-        console.log('Ya estabamos conectados')
+        // console.log('Ya estabamos conectados')
         return;
     }
     
-    console.log(`Nro.: ${mongoose.connections.length}`)
+    // console.log(`Nro.: ${mongoose.connections.length}`)
     if(mongoose.connections.length > 0){
         mongooConnection.statusConnect = mongoose.connections[0].readyState;
 
@@ -36,7 +36,7 @@ export const connect = async () =>{
 
     await mongoose.connect(process.env.MOONGO_URL || '');
     mongooConnection.statusConnect=1;
-    console.log(`Conectado a mongoDB: ${process.env.MOONGO_URL || ''}`)
+    // console.log(`Conectado a mongoDB: ${process.env.MOONGO_URL || ''}`)
 }
 
 export const disconnect = async () =>{
@@ -44,5 +44,5 @@ export const disconnect = async () =>{
     if (mongooConnection.statusConnect === 0) return;
     await mongoose.disconnect();
     mongooConnection.statusConnect=0; //atento
-    console.log(`Desconectado de mongoDB: ${process.env.MOONGO_URL || ''}`)
+    // console.log(`Desconectado de mongoDB: ${process.env.MOONGO_URL || ''}`)
 }

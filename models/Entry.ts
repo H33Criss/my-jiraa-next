@@ -10,7 +10,7 @@ const entrySchema  = new Schema<SchemaTypeOptions<Object>>({
         type:String,
         enum:{
             values:['pending','in-progress','finished'],
-            message:'{VALUE} valor incorrecto.'
+            message:'{VALUE} status no permitido.'
         },
         default:'pending'
     },
