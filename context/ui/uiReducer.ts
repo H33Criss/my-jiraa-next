@@ -4,7 +4,7 @@ import { UIState } from './';
 type UIActionType =
     | { type: 'UI - Open sidebar' }
     | { type: 'UI - Close sidebar' }
-    | { type: 'UI - Toggle adding', payload: boolean }
+    | { type: 'UI - Set adding', payload: boolean }
     | { type: 'UI - Toggle dragging', payload: boolean }
     | { type: 'UI - Set dragging', payload: boolean }
 
@@ -21,10 +21,10 @@ export const uiReducer = (state: UIState, action: UIActionType): UIState => {
                 ...state,
                 openSideMenu: false,
             };
-        case 'UI - Toggle adding':
+        case 'UI - Set adding':
             return {
                 ...state,
-                isAdding: !action.payload,
+                isAdding: action.payload,
             };
         // case 'UI - Toggle dragging':
         //     return {

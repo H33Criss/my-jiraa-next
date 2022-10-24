@@ -1,4 +1,4 @@
-import { Card, CardContent, CardHeader, Grid, Box } from '@mui/material';
+import { Card, CardContent, CardHeader, Grid, Box, Skeleton } from '@mui/material';
 import type { NextPage } from 'next'
 import { Mainlayout } from '../components/layouts'
 import { EntryList, NewEntry } from '../components/ui'
@@ -39,6 +39,7 @@ const Home: NextPage = () => {
 
             <CardContent>
               <EntryList status='finished' />
+              
             </CardContent>
 
           </Card>

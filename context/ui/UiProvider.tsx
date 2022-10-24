@@ -22,8 +22,8 @@ export const UiProvider: FC<PropsWithChildren> = ({ children }) => {
     const closeMenu = () => {
         dispatch({ type: 'UI - Close sidebar' });
     }
-    const toggleAdding = () => {
-        dispatch({ type: 'UI - Toggle adding', payload: state.isAdding });
+    const setAdding = (adding:boolean) => {
+        dispatch({ type: 'UI - Set adding', payload: adding });
     }
     //this does work
     const toggleDragging = (current=state.isDragging) => {
@@ -33,7 +33,7 @@ export const UiProvider: FC<PropsWithChildren> = ({ children }) => {
         dispatch({ type: 'UI - Set dragging', payload: dragg });
     }
     return (
-        <UiContext.Provider value={{ ...state, openMenu, closeMenu, toggleAdding, toggleDragging,setDragging }}>
+        <UiContext.Provider value={{ ...state, openMenu, closeMenu, setAdding, toggleDragging,setDragging }}>
             {children}
         </UiContext.Provider>
     )

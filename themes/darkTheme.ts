@@ -61,7 +61,7 @@ export const darkTheme = createTheme({
                     style: {
                         color: 'black !important',
                         backgroundColor: 'white !important',
-                        boxShadow: '0 2px 9px 0 white !important',
+                        boxShadow: '0 2px 7px 0 white !important',
                     },
                 },
             ],
@@ -69,6 +69,9 @@ export const darkTheme = createTheme({
             styleOverrides: {
                 containedPrimary: {
                     boxShadow: `0 4px 14px 0 ${primaryColor} !important`,
+                    "&:disabled": {
+                        boxShadow: `none !important`,
+                    },
                 },
                 containedSecondary: {
                     boxShadow: `0 4px 14px 0 ${secondaryColor} !important`,

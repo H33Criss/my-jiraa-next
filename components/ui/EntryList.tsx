@@ -1,4 +1,4 @@
-import { Box, List, Paper } from "@mui/material"
+import { Box, List, Paper, Skeleton } from "@mui/material"
 import { DragEvent, FC, useContext, useMemo } from 'react';
 import { EntriesContext } from "../../context/entries";
 import { UiContext } from "../../context/ui";
@@ -13,7 +13,7 @@ interface Props {
 export const EntryList: FC<Props> = ({ status }) => {
 
     const { entries, updateEntry } = useContext(EntriesContext);
-    const { isDragging, setDragging } = useContext(UiContext);
+    const { isDragging, setDragging, isAdding } = useContext(UiContext);
 
     const EntriesByStatus = useMemo( () => entries.filter( entry => entry.status === status ), [ entries ]);
 
@@ -40,10 +40,14 @@ export const EntryList: FC<Props> = ({ status }) => {
                     className={`${styles.entryList}  ${isDragging ? styles.dragging : styles.entryBg}`}>
                     <List sx={{ opacity: isDragging ? 0.5 : 1, padding: '10px' }}>
                         {
-                            EntriesByStatus.map(entry => (
+                            isAdding
+                            ?<Skeleton variant="rectangular" width={'100%'} height={90} />
+                            :EntriesByStatus.map(entry => (
                                 <EntryCard key={entry._id} entry={entry} />
                             ))
                         }
+                        
+                        
                     </List>
                 </Box>
             </Paper>
