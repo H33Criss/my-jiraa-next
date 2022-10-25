@@ -12,19 +12,31 @@ interface Props {
 
 export const EntryList: FC<Props> = ({ status }) => {
 
-    const { entries, updateEntry } = useContext(EntriesContext);
-    const { isDragging, setDragging, isAdding } = useContext(UiContext);
+    const { entries, updateEntry, setRefreshing, refreshingOne } = useContext(EntriesContext);
+    const { isDragging, setDragging } = useContext(UiContext);
 
-    const EntriesByStatus = useMemo( () => entries.filter( entry => entry.status === status ), [ entries ]);
+    const EntriesByStatus = useMemo(() => entries.filter(entry => entry.status === status), [entries]);
 
     const onDropEntry = (e: DragEvent<HTMLDivElement>) => {
         const entry = entries.find(entry => entry._id === e.dataTransfer.getData('text'))!;
         entry.status = status;
+        setRefreshing({
+            entrylist: status,
+            individualValue: true,
+        })
         updateEntry(entry);
         setDragging(false);
     }
     const dragOver = (e: DragEvent<HTMLDivElement>) => {
         e.preventDefault()
+    }
+
+    const generateContent = (refresing: boolean) => {
+        return refresing ? [1, 2, 3, 4].map((i) =>
+            <Skeleton key={i} variant="rectangular" sx={{ marginBottom: '25px' }} width={'100%'} height={90} />)
+            : EntriesByStatus.map(entry => (
+                <EntryCard key={entry._id} entry={entry} />
+            ))
     }
 
     return (
@@ -40,14 +52,16 @@ export const EntryList: FC<Props> = ({ status }) => {
                     className={`${styles.entryList}  ${isDragging ? styles.dragging : styles.entryBg}`}>
                     <List sx={{ opacity: isDragging ? 0.5 : 1, padding: '10px' }}>
                         {
-                            isAdding
-                            ?<Skeleton variant="rectangular" width={'100%'} height={90} />
-                            :EntriesByStatus.map(entry => (
-                                <EntryCard key={entry._id} entry={entry} />
-                            ))
+                            status === 'finished' && generateContent(refreshingOne.refreshFinish)
                         }
-                        
-                        
+                        {
+                            status === 'pending' && generateContent(refreshingOne.refreshPending)
+                        }
+                        {
+                            status === 'in-progress' && generateContent(refreshingOne.refreshProgress)
+                        }
+
+
                     </List>
                 </Box>
             </Paper>
