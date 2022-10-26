@@ -3,6 +3,7 @@ import type { Server as HTTPServer } from 'http'
 import type { Socket as NetSocket } from 'net'
 import type { Server as IOServer, Socket } from 'socket.io'
 import { Server } from 'socket.io'
+import cors from 'cors'
 
 
 interface SocketServer extends HTTPServer {
@@ -19,11 +20,7 @@ interface NextApiResponseWithSocket extends NextApiResponse {
 
 
 export default async function socket(req: NextApiRequest, res: NextApiResponseWithSocket) {
-    await NextCors(req, res, {
-        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
-        origin: '*',
-        optionsSuccessStatus: 200,
-    });
+    cors();
     if (res.socket.server.io) {
         console.log('Ya hay un server.')
     } else {
