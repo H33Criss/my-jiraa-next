@@ -18,7 +18,12 @@ interface NextApiResponseWithSocket extends NextApiResponse {
 }
 
 
-export default function socket(req: NextApiRequest, res: NextApiResponseWithSocket) {
+export default async function socket(req: NextApiRequest, res: NextApiResponseWithSocket) {
+    await NextCors(req, res, {
+        methods: ['GET', 'HEAD', 'PUT', 'PATCH', 'POST', 'DELETE'],
+        origin: '*',
+        optionsSuccessStatus: 200,
+    });
     if (res.socket.server.io) {
         console.log('Ya hay un server.')
     } else {
@@ -42,3 +47,10 @@ export default function socket(req: NextApiRequest, res: NextApiResponseWithSock
     }
     res.end()
 }
+function NextCors(req: NextApiRequest, res: NextApiResponseWithSocket, arg2: {
+    // Options
+    methods: string[]; origin: string; optionsSuccessStatus: number
+}) {
+    throw new Error('Function not implemented.')
+}
+
