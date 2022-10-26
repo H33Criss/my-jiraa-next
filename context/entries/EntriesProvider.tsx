@@ -48,7 +48,8 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
     }
     const socketInitializer = async () => {
         await fetch('/api/socket')
-        socket = io('http://localhost:3000')
+        socket = io(`${process.env.URL_DOMAIN}`)
+        // socket = io('http://localhost:3000')
 
         socket.on('connect', () => {
             // console.log('Cliente conectado')
