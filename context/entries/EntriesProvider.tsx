@@ -3,7 +3,7 @@ import { Entries } from '../../interfaces'
 import { EntriesContext, entriesReducer } from './'
 import { entriesApi } from '../../apis';
 import { useSnackbar } from 'notistack';
-import { io, Socket } from 'Socket.IO-client'
+import { io, Socket } from 'socket.io-client'
 import { EntryStatus } from '../../interfaces/entries';
 
 
