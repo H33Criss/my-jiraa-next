@@ -26,6 +26,7 @@ export const Navbar: FC<Props> = ({ maxWidth }) => {
                         <Typography variant='h5' sx={{ marginLeft: '10px' }}>MyJiraa</Typography>
                     </Link>
                 </NextLink>
+
                 <QueueIcon sx={{ marginLeft: '10px' }} />
             </Toolbar>
         </AppBar>

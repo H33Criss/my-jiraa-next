@@ -43,10 +43,3 @@ export default async function socket(req: NextApiRequest, res: NextApiResponseWi
     }
     res.end()
 }
-function NextCors(req: NextApiRequest, res: NextApiResponseWithSocket, arg2: {
-    // Options
-    methods: string[]; origin: string; optionsSuccessStatus: number
-}) {
-    throw new Error('Function not implemented.')
-}
-
