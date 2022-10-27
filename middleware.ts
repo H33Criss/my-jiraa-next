@@ -21,7 +21,7 @@ export function middleware(req: NextRequest) {
 }
 // See "Matching Paths" below to learn more
 export const config = {
-  matcher: ['/api/entries/:id*', '/api/:*'],
+  matcher: ['/api/entries/:id*', '/api/socket'],
   //   matcher: '/api/:path*',
   //   matcher: '/about/:path*',
 }
