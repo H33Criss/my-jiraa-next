@@ -47,9 +47,9 @@ export const EntriesProvider: FC<PropsWithChildren> = ({ children }) => {
         firstload && setRefreshing({ refreshingAll: false });
     }
     const socketInitializer = async () => {
-        await fetch('/api/socket', {
-            method: 'GET',
-        })
+        // await fetch('/api/socket', {
+        //     method: 'GET',
+        // })
         socket = io('https://myjiraa-nextjs.herokuapp.com/', { transports: ['websocket'] });
         // socket = io(`${process.env.URL_DOMAIN}`)
         // socket = io('http://localhost:3000')
